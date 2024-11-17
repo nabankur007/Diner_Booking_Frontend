@@ -64,7 +64,7 @@ const Login = () => {
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
                 <h2 className="text-2xl font-bold text-center mb-6">
-                    Diner
+                    Welcome to <br /> Diner Booking
                 </h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
@@ -103,11 +103,14 @@ const Login = () => {
 
                     {/* Display validation error */}
                     {error && <p className="mb-4 text-red-500">{error}</p>}
-
+                    <Link to="/forget_password" 
+                        className="text-orange-600">
+                        forget password?
+                    </Link>
                     <button
                         type="submit"
                         disabled={!username || !password}
-                        className="w-full mb-2 bg-orange-500 text-white py-2 rounded-md hover:bg-blue-600 transition disabled:opacity-50"
+                        className="mt-3 w-full mb-2 bg-orange-500 text-white py-2 rounded-md hover:bg-blue-600 transition disabled:opacity-50"
                     >
                         Login
                     </button>
