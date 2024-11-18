@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Api from "../context/Api";
+import { Link } from "react-router-dom";
 
 const Forget_password = () => {
     const [email, setEmail] = useState("");
@@ -44,7 +45,9 @@ const Forget_password = () => {
                 setError("Failed to send reset link. Please try again.");
             }
         } catch (err) {
-            setError("An error occurred while sending the reset link. Please try again.");
+            setError(
+                "An error occurred while sending the reset link. Please try again."
+            );
         } finally {
             setIsLoading(false); // Stop loading after the request completes
             setIsDisabled(false); // Enable button again
@@ -53,7 +56,7 @@ const Forget_password = () => {
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="bg-white p-8 rounded-md shadow-md w-full max-w-md">
+            <div className="bg-white p-8 rounded-md shadow-md w-full max-w-md ">
                 <h2 className="text-2xl font-semibold text-center mb-6">
                     Forgot Password
                 </h2>
@@ -70,15 +73,24 @@ const Forget_password = () => {
                         />
                     </div>
                     {error && <p className="text-red-500 mb-4">{error}</p>}
-                    {message && <p className="text-green-500 mb-4">{message}</p>}
+                    {message && (
+                        <p className="text-green-500 mb-4">{message}</p>
+                    )}
                     <button
                         type="submit"
                         className="w-full bg-orange-500 text-white font-bold py-2 rounded-md hover:bg-orange-600 transition-colors duration-200"
                         disabled={isDisabled} // Disable button during loading
                     >
-                        {isLoading ? "Sending..." : "Send Reset Link"} {/* Change button text based on loading state */}
+                        {isLoading ? "Sending..." : "Send Reset Link"}{" "}
+                        {/* Change button text based on loading state */}
                     </button>
                 </form>
+                <Link
+                    to="/login"
+                    className="text-orange-600 font-semibold hover:underline hover:text-orange-500 transition-colors"
+                >
+                    Go to login
+                </Link>
             </div>
         </div>
     );

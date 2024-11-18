@@ -61,41 +61,38 @@ const Login = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
-                <h2 className="text-2xl font-bold text-center mb-6">
-                    Welcome to <br /> Diner Booking
+        <div className="flex items-center justify-center min-h-screen bg-gray-50">
+            <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-xl">
+                <h2 className="text-3xl font-bold text-center text-orange-600 mb-6">
+                    Welcome to Diner Booking
                 </h2>
                 <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
-                        <label className="block mb-1 text-gray-700">
-                            Username or email
-                        </label>
+                    <div className="mb-6">
+                        <label className="block mb-2 text-gray-800">Username or Email</label>
                         <input
                             type="text"
                             name="username"
-                            placeholder="type here"
-                            className="w-full px-4 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-400"
+                            placeholder="Enter username or email"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 outline-none"
                             value={username}
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div className="mb-4 relative">
-                        <label className="block mb-1 text-gray-700">
-                            Password
-                        </label>
+
+                    <div className="mb-6 relative">
+                        <label className="block mb-2 text-gray-800">Password</label>
                         <input
                             type={showPassword ? "text" : "password"}
                             name="password"
-                            placeholder="Password"
-                            className="w-full px-4 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-400"
+                            placeholder="Enter password"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 outline-none"
                             value={password}
                             onChange={handleInputChange}
                         />
                         <button
                             type="button"
                             onClick={toggleShowPassword}
-                            className="absolute right-2 top-2 text-gray-500 hover:text-gray-700"
+                            className="absolute right-4 top-1/2 pt-8 transform -translate-y-1/2 text-gray-500 hover:text-orange-600"
                         >
                             {showPassword ? "🙈" : "👁️"}
                         </button>
@@ -103,22 +100,29 @@ const Login = () => {
 
                     {/* Display validation error */}
                     {error && <p className="mb-4 text-red-500">{error}</p>}
-                    <Link to="/forget_password" 
-                        className="text-orange-600">
-                        forget password?
-                    </Link>
+
+                    <div className="flex justify-between items-center">
+                        <Link to="/forget_password" className="text-orange-600 text-sm hover:text-orange-700">
+                            Forgot password?
+                        </Link>
+                    </div>
+
                     <button
                         type="submit"
                         disabled={!username || !password}
-                        className="mt-3 w-full mb-2 bg-orange-500 text-white py-2 rounded-md hover:bg-blue-600 transition disabled:opacity-50"
+                        className="mt-4 w-full bg-orange-600 text-white py-3 rounded-md hover:bg-orange-700 transition duration-300 disabled:opacity-50"
                     >
                         Login
                     </button>
                 </form>
-                <p className="mt-2 ml-1">
-                    don't have an account ?{" "}
-                    <Link className="text-blue-500" to="/singup">
-                        sign up
+
+                <p className="mt-6 text-center text-gray-700">
+                    Don't have an account?{" "}
+                    <Link
+                        to="/signup"
+                        className="text-orange-600 font-semibold hover:underline hover:text-orange-700 transition-colors"
+                    >
+                        Sign up
                     </Link>
                 </p>
             </div>

@@ -77,7 +77,7 @@ const Reset_password = () => {
             if (response.status === 200) {
                 setMessage("Your password has been reset successfully.");
                 localStorage.removeItem("reset-token"); // Remove token from localStorage after successful reset
-                navigate("/login"); // Redirect to login page after success (you can change this as per your flow)
+                navigate("/close_reset_password"); // Redirect to close page after success (you can change this as per your flow)
             } else {
                 setError("Failed to reset password. Please try again.");
             }
