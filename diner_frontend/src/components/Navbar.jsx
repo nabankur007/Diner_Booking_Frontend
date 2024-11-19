@@ -26,6 +26,9 @@ const Navbar = () => {
                     <Link to="/about" className="hover:text-orange-300 transition-colors">
                         About
                     </Link>
+                    <Link to="/restaurant" className="hover:text-orange-300 transition-colors">
+                        Restaurants
+                    </Link>
 
                     {
                         // Check if the user is logged in by looking for "user-data" in localStorage

@@ -6,9 +6,12 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
+import Restaurant from "./pages/Restaurant";
 import Forget_password from "./pages/Forget_password";
 import Reset_password from "./pages/Reset_password";
 import Close_reset_password from "./pages/Close_reset_password";
+import AddRestaurant from "./pages/AddRestaurant";
+
 
 function App() {
     const location = useLocation();
@@ -27,9 +30,11 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/restaurant" element={<Restaurant />} /> 
                 <Route path="/forget_password" element={<Forget_password />} />
                 <Route path="/reset_password" element={<Reset_password />} />
                 <Route path="/close_reset_password" element={<Close_reset_password />} />
+                <Route path="/add" element={<AddRestaurant />} />
             </Routes>
         </>
     );
