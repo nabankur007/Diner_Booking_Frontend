@@ -11,7 +11,8 @@ import Forget_password from "./pages/Forget_password";
 import Reset_password from "./pages/Reset_password";
 import Close_reset_password from "./pages/Close_reset_password";
 import AddRestaurant from "./pages/AddRestaurant";
-
+import Res_admin_home from "./restaurent_admin/Res_admin_home";
+import Res_Registration from "./restaurent_admin/Res_registration";
 
 function App() {
     const location = useLocation();
@@ -25,7 +26,8 @@ function App() {
         <>
             {!hideNavbarPaths.includes(location.pathname) && <Navbar />}
             <Routes>
-                <Route path="/" element={<Home />} />
+                {/* <Route path="/" element={<Home />} /> */}
+                
                 <Route path="/about" element={<About />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
@@ -34,7 +36,11 @@ function App() {
                 <Route path="/forget_password" element={<Forget_password />} />
                 <Route path="/reset_password" element={<Reset_password />} />
                 <Route path="/close_reset_password" element={<Close_reset_password />} />
-                <Route path="/add" element={<AddRestaurant />} />
+                <Route path="/add_restaurent" element={<AddRestaurant />} />
+
+                {/* restaurent section pages */}
+                <Route path="/" element={<Res_admin_home />} />
+                <Route path="/res_Registration" element={<Res_Registration/>}/>
             </Routes>
         </>
     );

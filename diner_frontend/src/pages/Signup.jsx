@@ -1,27 +1,22 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Added navigate import
+import { Link, useNavigate } from "react-router-dom";
 import Api from "../context/Api";
 
 const Signup = () => {
-    // State variables for form fields
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    // State for error and success messages
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
-    // State for toggling password visibility
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    // To redirect after successful signup
     const navigate = useNavigate();
 
-    // Function to validate the form
     const validateForm = () => {
         if (!username || !email || !phone || !password || !confirmPassword) {
             setError("All fields are required.");
@@ -39,31 +34,27 @@ const Signup = () => {
             setError("Please enter a valid phone number.");
             return false;
         }
-        setError(""); // Clear any existing errors
+        setError("");
         return true;
     };
 
-    // Function to handle form submission
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent default form submission behavior
+        e.preventDefault();
         if (validateForm()) {
-            setSuccess("Signup successful!"); // Show success message
-
             try {
-                const response = await Api.post(`api/auth/public/signup`, {
+                const response = await Api.post("/api/auth/public/signup", {
                     username,
                     email,
                     phone,
-                    password, // Send the password as is (finalPassword is redundant)
+                    password,
                     role: ["user"],
                 });
 
                 if (response && response.data) {
-                    // Save user data to local storage if the response is successful
                     localStorage.setItem("user-data", JSON.stringify(response.data));
                     console.log("Sign up successful:", response.data);
-                    setError(""); // Clear any existing errors
-                    navigate("/"); // Redirect after a successful signup
+                    setError("");
+                    navigate("/");
                 }
             } catch (error) {
                 setError("Sign up failed. Please check your credentials and try again.");
@@ -72,113 +63,105 @@ const Signup = () => {
         }
     };
 
-    // Function to toggle password visibility
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
-    // Function to toggle confirm password visibility
     const toggleConfirmPasswordVisibility = () => {
         setShowConfirmPassword(!showConfirmPassword);
     };
 
     return (
-        <div className="max-w-md mx-auto mt-10 p-6 bg-white borderbg-white rounded-lg shadow-xl">
-            <h2 className="text-2xl font-semibold text-orange-600 mb-4 text-center">
-                Sign Up
-            </h2>
-            {error && <p className="text-red-600 text-center mb-2">{error}</p>}
-            {success && (
-                <p className="text-green-600 text-center mb-2">{success}</p>
-            )}
-            <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                    <label className="block text-orange-700 mb-1">
-                        Username:
-                    </label>
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                        className="w-full px-3 py-2 border border-orange-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-orange-700 mb-1">Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="w-full px-3 py-2 border border-orange-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-orange-700 mb-1">Phone:</label>
-                    <input
-                        type="text"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        required
-                        className="w-full px-3 py-2 border border-orange-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-orange-700 mb-1">
-                        Password:
-                    </label>
-                    <div className="relative">
+        <div className="flex items-center justify-center min-h-screen bg-gray-900">
+            <div className="w-full max-w-md p-8 bg-gray-800 rounded-lg shadow-xl">
+                <h2 className="text-3xl font-bold text-center text-orange-500 mb-6">
+                    Create an Account
+                </h2>
+                {error && <p className="mb-4 text-red-500 text-center">{error}</p>}
+                {success && (
+                    <p className="mb-4 text-green-500 text-center">{success}</p>
+                )}
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-1">
+                        <label className="block mb-2 text-gray-300">Username</label>
                         <input
-                            type={showPassword ? "text" : "password"}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                             required
-                            className="w-full px-3 py-2 border border-orange-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            className="w-full px-4 py-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 bg-gray-700 text-gray-200"
                         />
-                        <button
-                            type="button"
-                            onClick={togglePasswordVisibility}
-                            className="absolute top-1/2 right-3 transform -translate-y-1/2 text-orange-600"
-                        >
-                            {showPassword ? "🙈" : "👁️"}
-                        </button>
                     </div>
-                </div>
-                <div className="mb-6">
-                    <label className="block text-orange-700 mb-1">
-                        Confirm Password:
-                    </label>
-                    <div className="relative">
+                    <div className="mb-1">
+                        <label className="block mb-2 text-gray-300">Email</label>
                         <input
-                            type={showConfirmPassword ? "text" : "password"}
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             required
-                            className="w-full px-3 py-2 border border-orange-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            className="w-full px-4 py-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 bg-gray-700 text-gray-200"
                         />
-                        <button
-                            type="button"
-                            onClick={toggleConfirmPasswordVisibility}
-                            className="absolute top-1/2 right-3 transform -translate-y-1/2 text-orange-600"
-                        >
-                            {showConfirmPassword ? "🙈" : "👁️"}
-                        </button>
                     </div>
-                </div>
-                <button
-                    type="submit"
-                    className="w-full bg-orange-500 text-white font-semibold py-2 rounded hover:bg-orange-600 transition-colors"
-                >
-                    Sign Up
-                </button>
-            </form>
-            <div className="mt-4 text-center">
-                <p className="text-gray-700">
+                    <div className="mb-1">
+                        <label className="block mb-2 text-gray-300">Phone</label>
+                        <input
+                            type="text"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            required
+                            className="w-full px-4 py-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 bg-gray-700 text-gray-200"
+                        />
+                    </div>
+                    <div className="mb-1">
+                        <label className="block mb-2 text-gray-300">Password</label>
+                        <div className="relative">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                className="w-full px-4 py-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 bg-gray-700 text-gray-200"
+                            />
+                            <button
+                                type="button"
+                                onClick={togglePasswordVisibility}
+                                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400"
+                            >
+                                {showPassword ? "🙈" : "👁️"}
+                            </button>
+                        </div>
+                    </div>
+                    <div className="mb-1">
+                        <label className="block mb-2 text-gray-300">Confirm Password</label>
+                        <div className="relative">
+                            <input
+                                type={showConfirmPassword ? "text" : "password"}
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                required
+                                className="w-full px-4 py-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 bg-gray-700 text-gray-200"
+                            />
+                            <button
+                                type="button"
+                                onClick={toggleConfirmPasswordVisibility}
+                                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400"
+                            >
+                                {showConfirmPassword ? "🙈" : "👁️"}
+                            </button>
+                        </div>
+                    </div>
+                    <button
+                        type="submit"
+                        className="w-full mt-3 bg-orange-500 text-white py-3 rounded-md hover:bg-orange-600 transition duration-300"
+                    >
+                        Sign Up
+                    </button>
+                </form>
+                <p className="mt-2 text-center text-gray-400">
                     Already have an account?{" "}
                     <Link
                         to="/login"
-                        className="text-orange-600 font-semibold hover:underline hover:text-orange-500 transition-colors"
+                        className="text-orange-500 font-semibold hover:underline hover:text-orange-400 transition-colors"
                     >
                         Login
                     </Link>

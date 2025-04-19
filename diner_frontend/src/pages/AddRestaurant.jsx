@@ -1,123 +1,279 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Api from "../context/Api";
 
 const AddRestaurant = () => {
-  const [newRestaurant, setNewRestaurant] = useState({
-    name: "",
-    location: "",
-    cuisine: "",
-    tabledescription: "",
-    details: "",
-  });
-  const navigate = useNavigate();
+    const [newRestaurant, setNewRestaurant] = useState({
+        userName: "",
+        restaurantName: "",
+        password: "",
+        confirmPassword: "",
+        description: "",
+        phoneNumber: "",
+        email: "",
+        openingTime: "",
+        closingTime: "",
+        location: {
+            address: "",
+            longitude: "",
+            latitude: "",
+            city: "",
+            state: "",
+            country: "",
+            zip: "",
+            ownerUserName: "",
+        },
+        menu: [],
+        cuisines: [],
+        role: ["RESTAURANT"],
+    });
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
-  const handleAddRestaurant = async (e) => {
-    e.preventDefault();
+    const updateField = (field, value) => {
+        setNewRestaurant((prev) => ({
+            ...prev,
+            [field]: value,
+        }));
+    };
 
-    try {
-      const response = await fetch("https://api.example.com/restaurants", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newRestaurant),
-      });
+    const updateNestedField = (nestedField, value) => {
+        setNewRestaurant((prev) => ({
+            ...prev,
+            location: {
+                ...prev.location,
+                [nestedField]: value,
+            },
+        }));
+    };
 
-      if (response.ok) {
-        alert("Restaurant added successfully!");
-        navigate("/restaurant"); // Redirect to the restaurant page
-      } else {
-        alert("Failed to add restaurant. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error adding restaurant:", error);
-      alert("Error adding restaurant.");
-    }
-  };
+    const validateForm = () => {
+        const newErrors = {};
 
-  return (
-    <div
-      className="p-8 min-h-screen"
-      style={{
-        backgroundImage: `url('https://t4.ftcdn.net/jpg/02/92/20/37/360_F_292203735_CSsyqyS6A4Z9Czd4Msf7qZEhoxjpzZl1.jpg')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      {/* Overlay for readability */}
-      <div className="bg-black bg-opacity-50 p-8 rounded-lg min-h-screen">
-        <div className="max-w-3xl mx-auto bg-white bg-opacity-70 p-8 rounded-lg shadow-lg">
-          <h2 className="text-3xl font-bold text-orange-600 mb-4 text-center">
-            Register Your Restaurant
-          </h2>
-          <form onSubmit={handleAddRestaurant}>
-            <div className="mb-4">
-              <input
-                type="text"
-                placeholder="Restaurant Name"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none shadow-sm"
-                value={newRestaurant.name}
-                onChange={(e) => setNewRestaurant({ ...newRestaurant, name: e.target.value })}
-                required
-              />
+        // Check for required fields
+        const requiredFields = [
+            "userName", "restaurantName", "password", "confirmPassword",
+            "email", "phoneNumber", "openingTime", "closingTime",
+            "location.address", "location.city", "location.state",
+            "location.country", "location.zip"
+        ];
+
+        requiredFields.forEach((field) => {
+            const value = field.includes('.') 
+                ? field.split('.').reduce((acc, key) => acc[key], newRestaurant)
+                : newRestaurant[field];
+            
+            if (!value) {
+                const fieldName = field.split('.').join(' ');
+                newErrors[field] = `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required.`;
+            }
+        });
+
+        // Password match validation
+        if (newRestaurant.password !== newRestaurant.confirmPassword) {
+            newErrors.confirmPassword = "Passwords do not match.";
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (newRestaurant.email && !emailRegex.test(newRestaurant.email)) {
+            newErrors.email = "Invalid email format.";
+        }
+
+        // Phone number validation
+        const phoneRegex = /^[0-9]{10}$/;
+        if (newRestaurant.phoneNumber && !phoneRegex.test(newRestaurant.phoneNumber)) {
+            newErrors.phoneNumber = "Invalid phone number format.";
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleAddRestaurant = async (e) => {
+        e.preventDefault();
+        if (!validateForm()) {
+            return;
+        }
+
+        try {
+            const { confirmPassword, ...dataToSend } = newRestaurant;
+
+            const response = await Api.post(
+                "/api/auth/public/restaurant/signup",
+                dataToSend,
+                { headers: { "Content-Type": "application/json" } }
+            );
+
+            if (response.status === 200) {
+                alert("Restaurant registered successfully!");
+                localStorage.setItem("user-data", JSON.stringify(response.data));
+                navigate("/"); // Redirect to the restaurant page
+            } else {
+                alert(`Error: ${response.data.message}`);
+            }
+        } catch (error) {
+            console.error("Error adding restaurant:", error);
+            alert("An error occurred. Please try again later.");
+        }
+    };
+
+    return (
+        <div className="flex items-center justify-center min-h-screen bg-gray-900">
+            <div className="w-full max-w-3xl p-8 bg-gray-800 bg-opacity-70 rounded-lg shadow-lg">
+                <h2 className="text-3xl font-bold text-center text-orange-500 mb-6">
+                    Register Your Restaurant
+                </h2>
+                <form onSubmit={handleAddRestaurant}>
+                    {[{
+                        label: "Username",
+                        field: "userName"
+                    }, {
+                        label: "Restaurant Name",
+                        field: "restaurantName"
+                    }, {
+                        label: "Password",
+                        field: "password",
+                        type: showPassword ? "text" : "password",
+                        togglePassword: () => setShowPassword((prev) => !prev),
+                        showPassword
+                    }, {
+                        label: "Confirm Password",
+                        field: "confirmPassword",
+                        type: showConfirmPassword ? "text" : "password",
+                        togglePassword: () => setShowConfirmPassword((prev) => !prev),
+                        showPassword: showConfirmPassword
+                    }, {
+                        label: "Description",
+                        field: "description",
+                        type: "textarea"
+                    }, {
+                        label: "Phone Number",
+                        field: "phoneNumber"
+                    }, {
+                        label: "Email",
+                        field: "email"
+                    }].map((input, index) => (
+                        <div className="mb-4" key={index}>
+                            {input.type === "textarea" ? (
+                                <textarea
+                                    placeholder={input.label}
+                                    className="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none shadow-sm bg-gray-700 text-gray-200"
+                                    value={newRestaurant[input.field]}
+                                    onChange={(e) => updateField(input.field, e.target.value)}
+                                    required
+                                />
+                            ) : (
+                                <div className="relative">
+                                    <input
+                                        type={input.type || "text"}
+                                        placeholder={input.label}
+                                        className="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none shadow-sm bg-gray-700 text-gray-200"
+                                        value={newRestaurant[input.field]}
+                                        onChange={(e) => updateField(input.field, e.target.value)}
+                                        required
+                                    />
+                                    {input.togglePassword && (
+                                        <button
+                                            type="button"
+                                            className="absolute top-3 right-3 text-gray-400"
+                                            onClick={input.togglePassword}
+                                        >
+                                            {input.showPassword ? "🙈" : "👁️"}
+                                        </button>
+                                    )}
+                                </div>
+                            )}
+                            {errors[input.field] && (
+                                <p className="text-red-500 text-sm mt-2">{errors[input.field]}</p>
+                            )}
+                        </div>
+                    ))}
+
+                    <div className="mb-4 flex gap-4">
+                        <input
+                            type="time"
+                            placeholder="Opening Time"
+                            className="w-1/2 p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none shadow-sm bg-gray-700 text-gray-200"
+                            value={newRestaurant.openingTime}
+                            onChange={(e) => updateField("openingTime", e.target.value)}
+                            required
+                        />
+                        <input
+                            type="time"
+                            placeholder="Closing Time"
+                            className="w-1/2 p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none shadow-sm bg-gray-700 text-gray-200"
+                            value={newRestaurant.closingTime}
+                            onChange={(e) => updateField("closingTime", e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    {[{
+                        label: "Address",
+                        field: "location.address"
+                    }, {
+                        label: "City",
+                        field: "location.city"
+                    }, {
+                        label: "State",
+                        field: "location.state"
+                    }, {
+                        label: "Country",
+                        field: "location.country"
+                    }, {
+                        label: "Zip Code",
+                        field: "location.zip"
+                    }].map((input, index) => (
+                        <div className="mb-4" key={index}>
+                            <input
+                                type="text"
+                                placeholder={input.label}
+                                className="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none shadow-sm bg-gray-700 text-gray-200"
+                                value={input.field.split('.').reduce((acc, key) => acc[key], newRestaurant)}
+                                onChange={(e) =>
+                                    updateNestedField(input.field.split('.')[1], e.target.value)
+                                }
+                                required
+                            />
+                            {errors[input.field] && (
+                                <p className="text-red-500 text-sm mt-2">{errors[input.field]}</p>
+                            )}
+                        </div>
+                    ))}
+
+                    <div className="mb-4">
+                        <input
+                            type="text"
+                            placeholder="Menu Items (comma separated)"
+                            className="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none shadow-sm bg-gray-700 text-gray-200"
+                            value={newRestaurant.menu.join(", ")}
+                            onChange={(e) => updateField("menu", e.target.value.split(", "))}
+                        />
+                    </div>
+
+                    <div className="mb-4">
+                        <input
+                            type="text"
+                            placeholder="Cuisines (comma separated)"
+                            className="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none shadow-sm bg-gray-700 text-gray-200"
+                            value={newRestaurant.cuisines.join(", ")}
+                            onChange={(e) => updateField("cuisines", e.target.value.split(", "))}
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="w-full p-3 bg-orange-600 text-white font-bold rounded-lg hover:bg-orange-700 transition"
+                    >
+                        Register Restaurant
+                    </button>
+                </form>
             </div>
-            <div className="mb-4">
-              <input
-                type="text"
-                placeholder="Location"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none shadow-sm"
-                value={newRestaurant.location}
-                onChange={(e) => setNewRestaurant({ ...newRestaurant, location: e.target.value })}
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <input
-                type="text"
-                placeholder="Cuisine (e.g., Italian, Chinese)"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none shadow-sm"
-                value={newRestaurant.cuisine}
-                onChange={(e) => setNewRestaurant({ ...newRestaurant, cuisine: e.target.value })}
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <textarea
-                placeholder="Table Description"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none shadow-sm"
-                value={newRestaurant.tabledescription}
-                onChange={(e) =>
-                  setNewRestaurant({ ...newRestaurant, tabledescription: e.target.value })
-                }
-              />
-            </div>
-            <div className="mb-4">
-              <textarea
-                placeholder="Details (optional)"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none shadow-sm"
-                value={newRestaurant.details}
-                onChange={(e) => setNewRestaurant({ ...newRestaurant, details: e.target.value })}
-              />
-            </div>
-            <div className="flex justify-between">
-              <button
-                type="button"
-                className="bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition shadow-md"
-                onClick={() => navigate("/restaurant")} // Redirect to the restaurant page
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition shadow-md"
-              >
-                Submit
-              </button>
-            </div>
-          </form>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default AddRestaurant;

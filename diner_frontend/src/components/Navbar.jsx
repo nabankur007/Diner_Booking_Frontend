@@ -2,63 +2,94 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-    // Function to handle user logout and clear local storage
     const navigate = useNavigate();
+
+    // Handle user logout and clear local storage
     const handleLogout = () => {
         localStorage.clear();
-        // Optionally, you can redirect or give feedback after logout
         console.log("User logged out");
         navigate("/"); // Redirect to home after logout
     };
 
     return (
-        <div className="bg-orange-600 text-white dark:bg-gray-900 dark:text-gray-100">
-            <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-                <div className="text-2xl font-bold">
-                    <Link to="/" className="hover:text-orange-300 transition-colors">
-                        Navbar
+        <nav className="bg-black text-white shadow-lg">
+            <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+                {/* Logo Section */}
+                <div className="text-3xl font-bold text-orange-500">
+                    <Link
+                        to="/"
+                        className="hover:text-orange-400 transition-colors"
+                    >
+                        DineEasy
                     </Link>
                 </div>
-                <div className="space-x-4">
-                    <Link to="/" className="hover:text-orange-300 transition-colors">
-                        Home
-                    </Link>
-                    <Link to="/about" className="hover:text-orange-300 transition-colors">
-                        About
-                    </Link>
-                    <Link to="/restaurant" className="hover:text-orange-300 transition-colors">
-                        Restaurants
-                    </Link>
+             
+                {/* search bar section */}
+                <div >
+                   
+                </div>
 
-                    {
-                        // Check if the user is logged in by looking for "user-data" in localStorage
-                        localStorage.getItem("user-data") ? (
-                            <>
-                                <Link to="/profile" className="hover:text-orange-300 transition-colors">
-                                    Profile
-                                </Link>
-                                <button
-                                    type="button" // Use type "button" to prevent form submission behavior
-                                    onClick={handleLogout} // Pass the function reference
-                                    className="bg-red-500 px-4 py-2 rounded-md text-white hover:bg-red-600 transition-colors"
-                                >
-                                    Logout
-                                </button>
-                            </>
-                        ) : (
-                            <>
-                                <Link to="/login" className="hover:text-orange-300 transition-colors">
-                                    Log in
-                                </Link>
-                                <Link to="/signup" className="hover:text-orange-300 transition-colors">
-                                    Sign up
-                                </Link>
-                            </>
-                        )
-                    }
+
+                {/* Navigation Links */}
+                <div className="hidden md:flex space-x-8 items-center text-xl ">
+
+                    {localStorage.getItem("user-data") ? (
+                        <>
+                            <Link
+                                to="/profile"
+                                className="text-gray-300 hover:text-orange-400 transition-colors"
+                            >
+                                Profile
+                            </Link>
+                            <button
+                                onClick={handleLogout}
+                                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors"
+                            >
+                                Logout
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <Link
+                                to="/login"
+                                className="text-gray-300 hover:text-orange-400 transition-colors"
+                            >
+                                Log in
+                            </Link>
+                            <Link
+                                to="/signup"
+                                className="text-gray-300 hover:text-orange-400 transition-colors"
+                            >
+                                Sign up
+                            </Link>
+                        </>
+                    )}
+                </div>
+
+                {/* Hamburger Menu for Mobile */}
+                <div className="md:hidden flex items-center">
+                    <button
+                        className="text-gray-300 focus:outline-none hover:text-orange-400"
+                        aria-label="Toggle Menu"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M4 6h16M4 12h16m-7 6h7"
+                            />
+                        </svg>
+                    </button>
                 </div>
             </div>
-        </div>
+        </nav>
     );
 };
 
