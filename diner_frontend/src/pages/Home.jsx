@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Restaurant from "./Restaurant";
 
 const Home = () => {
     return (
@@ -17,7 +16,7 @@ const Home = () => {
                     <h2 className="text-3xl font-semibold text-orange-500 mb-6 text-center">
                         Top Restaurants
                     </h2>
-                    <Restaurant />
+                  
                 </section>
                 {/* Testimonials Section */}
                 <section className="container mx-auto px-6 py-10 bg-gray-900 rounded-lg shadow-lg">
