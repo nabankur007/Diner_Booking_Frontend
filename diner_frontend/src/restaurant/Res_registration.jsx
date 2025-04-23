@@ -327,7 +327,14 @@ const Res_registration = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 p-6">
+        <div  className="min-h-screen flex items-center justify-center px-4"
+        style={{
+          backgroundImage: `url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEG8IHVADhqh2rBuP-hBnheRMbKVfouCCo7g&s")`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+           
+        }}
+      >
             <div className="max-w-6xl mx-auto bg-white shadow-lg rounded-lg flex flex-col lg:flex-row overflow-hidden">
                 <Sidebar />
 

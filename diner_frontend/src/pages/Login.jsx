@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import Api from "../context/Api";
 import { Link, useNavigate } from "react-router-dom";
+import { FaGoogle, FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+
+import axios from 'axios';
+import { useEffect } from 'react';
+
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -8,6 +13,31 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
     const navigate = useNavigate();
+
+
+
+
+    useEffect(() => {
+        window.fbAsyncInit = function () {
+            window.FB.init({
+                appId: 'YOUR_FACEBOOK_APP_ID',
+                cookie: true,
+                xfbml: true,
+                version: 'v18.0'
+            });
+        };
+    }, []);
+    
+
+
+
+
+
+
+  
+
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -46,7 +76,18 @@ const Login = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-900">
+
+        <div
+        className="flex items-center justify-center min-h-screen bg-no-repeat bg-cover bg-center"
+        style={{
+            backgroundImage: `url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEG8IHVADhqh2rBuP-hBnheRMbKVfouCCo7g&s')`,
+        }}
+    >
+
+       
+
+
+        
             <div className="w-full max-w-md p-8 bg-gray-800 rounded-lg shadow-lg">
                 <h2 className="text-3xl font-bold text-center text-orange-500 mb-6">
                     Welcome Back to Diner
@@ -79,7 +120,7 @@ const Login = () => {
                         <button
                             type="button"
                             onClick={toggleShowPassword}
-                            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-orange-500"
+                            className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400"
                         >
                             {showPassword ? "🙈" : "👁️"}
                         </button>
@@ -108,6 +149,68 @@ const Login = () => {
                     </button>
                 </form>
 
+
+                 {/* Social Login Divider */}
+                        <div className="flex items-center justify-center my-6">
+                            <hr className="border-gray-600 flex-grow" />
+                            <span className="mx-4 text-gray-400">Or</span>
+                            <hr className="border-gray-600 flex-grow" />
+                        </div>
+
+                        {/* Social Login Icons */}
+                        <div className="flex justify-center gap-6">
+
+                        {/* Google (Gmail) */}
+                             <button
+                               
+                                className="p-3 bg-white rounded-full shadow hover:scale-110 transition-transform duration-200"
+                            >
+                                <img
+                                    src="https://cdn-icons-png.flaticon.com/512/281/281764.png"
+                                    alt="Google Mail"
+                                    className="w-6 h-6"
+                                />
+                            </button>
+
+                        {/* Facebook */}
+
+                        <button
+                           
+                            className="p-3 bg-white rounded-full shadow hover:scale-110 transition-transform duration-200">
+                            <img
+                                src="https://cdn-icons-png.flaticon.com/512/733/733547.png"
+                                alt="Facebook"
+                                className="w-6 h-6"
+                            />
+                        </button>
+
+                        
+                        {/* Instagram */}
+                        <button className="p-3 bg-white rounded-full shadow hover:scale-110 transition-transform duration-200">
+                            <img
+                            src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png"
+                            alt="Instagram"
+                            className="w-6 h-6"
+                            />
+                        </button>
+
+                        {/* Twitter */}
+                        <button className="p-3 bg-white rounded-full shadow hover:scale-110 transition-transform duration-200">
+                            <img
+                            src="https://cdn-icons-png.flaticon.com/512/733/733579.png"
+                            alt="Twitter"
+                            className="w-6 h-6"
+                            />
+                        </button>
+                        </div>
+
+
+
+
+
+
+
+
                 {/* Signup Redirect */}
                 <p className="mt-6 text-center text-gray-400">
                     Don&apos;t have an account?{" "}
@@ -119,6 +222,17 @@ const Login = () => {
                     </Link>
                 </p>
             </div>
+
+
+
+
+
+           
+
+
+
+
+
         </div>
     );
 };
