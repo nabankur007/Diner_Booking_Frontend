@@ -121,8 +121,15 @@ const AddRestaurant = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-900">
-            <div className="w-full max-w-3xl p-8 bg-gray-800 bg-opacity-70 rounded-lg shadow-lg">
+
+        <div
+        className="flex items-center justify-center min-h-screen bg-no-repeat bg-cover bg-center"
+        style={{
+            backgroundImage: `url('https://plus.unsplash.com/premium_photo-1661953124283-76d0a8436b87?q=80&w=2088&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
+        }}>
+
+        <div className="flex items-center justify-center min-h-screen bg-gray-900 mt-5 ">
+            <div className="w-full max-w-3xl p-10 bg-gray-800 bg-opacity-70 rounded-lg shadow-lg">
                 <h2 className="text-3xl font-bold text-center text-orange-500 mb-6">
                     Register Your Restaurant
                 </h2>
@@ -272,6 +279,7 @@ const AddRestaurant = () => {
                     </button>
                 </form>
             </div>
+        </div>
         </div>
     );
 };
