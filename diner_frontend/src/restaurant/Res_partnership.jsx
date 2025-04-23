@@ -23,7 +23,7 @@ const Res_partnership = () => {
           Valid for new restaurant partners in select cities.
         </p>
 
-        <Link to="/registration">
+        <Link to="/res_registration">
           <button className="bg-orange-500 hover:bg-orange-600 transition-all duration-300 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg">
             Register your restaurant
           </button>
