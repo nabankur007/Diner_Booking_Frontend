@@ -6,57 +6,49 @@ const Home = () => {
         <div
             className="min-h-screen bg-cover bg-center"
             style={{
-                backgroundImage: `url('https://images.unsplash.com/photo-1528605248644-14dd04022da1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080')`,
+                backgroundImage: `url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1350&q=80')`,
             }}
         >
-            <div className="bg-black bg-opacity-90 min-h-screen text-white">
-                
-                {/* Restaurants Section */}
-                <section className="container mx-auto px-6 py-10 restaurant">
-                    <h2 className="text-3xl font-semibold text-orange-500 mb-6 text-center">
-                        Top Restaurants
-                    </h2>
-                  
-                </section>
-                {/* Testimonials Section */}
-                <section className="container mx-auto px-6 py-10 bg-gray-900 rounded-lg shadow-lg">
-                    <h2 className="text-3xl font-semibold text-orange-500 mb-6 text-center">
-                        What Our Users Say
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-                            <p className="text-gray-300 italic mb-4">
-                                "DineEasy makes booking a table so simple. I found amazing deals and
-                                booked my favorite spot in seconds!"
-                            </p>
-                            <h3 className="text-orange-400 font-bold text-lg">- Emily R.</h3>
-                        </div>
-                        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-                            <p className="text-gray-300 italic mb-4">
-                                "The curated dining experiences are top-notch. I recommend it to
-                                anyone looking for a special evening out."
-                            </p>
-                            <h3 className="text-orange-400 font-bold text-lg">- John D.</h3>
-                        </div>
-                    </div>
-                </section>
+            <div className="bg-black bg-opacity-80 min-h-screen text-white flex flex-col justify-between">
+                <div>
+                    {/* Restaurants Section */}
+                    <section className="container mx-auto px-6 py-16">
+                        <h2 className="text-4xl font-bold text-orange-400 mb-6 text-center drop-shadow-lg">
+                            🍝 Great times and delicious bites await—reserve your spot!
+                        </h2>
+                        <p className="text-center text-gray-300 mb-10 max-w-2xl mx-auto text-lg">
+                        Discover your next favorite meal: book a table and let the flavor adventure begin.
+                        </p>
+                    </section>
 
-                {/* Footer */}
-                <footer className="bg-gray-800 py-6 mt-10">
-                    <div className="container mx-auto text-center">
-                        <p className="text-gray-400 text-sm">
-                            © 2024 DineEasy. All rights reserved.
+                    {/* Testimonials Section */}
+                    <section className="container mx-auto px-6 py-10">
+                    <h2 className="text-4xl font-bold text-orange-500 mb-12 text-center drop-shadow-lg">
+                    ❤️  What Our Guests Say  ❤️
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        {/* Testimonial Card */}
+                        <div className="relative bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-md p-6 rounded-xl shadow-lg border border-orange-400/30 hover:scale-105 transition-transform duration-300">
+                        <div className="absolute -top-5 left-5 text-orange-400 text-4xl">“</div>
+                        <p className="text-gray-200 italic text-lg mb-6">
+                            DineEasy helped me find a romantic spot for our anniversary. The atmosphere and food were unforgettable!
                         </p>
-                        <p className="text-gray-500 text-xs">
-                            Built with ❤️ by food lovers for food lovers.
+                        <h3 className="text-orange-400 font-bold text-lg text-right">– Isabella M.</h3>
+                        </div>
+
+                        {/* Testimonial Card */}
+                        <div className="relative bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-md p-6 rounded-xl shadow-lg border border-orange-400/30 hover:scale-105 transition-transform duration-300">
+                        <div className="absolute -top-5 left-5 text-orange-400 text-4xl">“</div>
+                        <p className="text-gray-200 italic text-lg mb-6">
+                            I never thought booking Italian fine dining could be this smooth. The recommendations were on point!
                         </p>
-                        <p>
-                            <Link to="/about">
-                            about us
-                            </Link>
-                        </p>
+                        <h3 className="text-orange-400 font-bold text-lg text-right">– Marco L.</h3>
+                        </div>
                     </div>
-                </footer>
+                    </section>
+                </div>
+
+               
             </div>
         </div>
     );

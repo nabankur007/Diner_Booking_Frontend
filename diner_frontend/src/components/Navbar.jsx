@@ -62,6 +62,12 @@ const Navbar = () => {
                             >
                                 Sign up
                             </Link>
+                            <Link
+                                to="/res_registration"
+                                className="text-gray-300 hover:text-orange-400 transition-colors"
+                            >
+                                Add Restaurant
+                            </Link>
                         </>
                     )}
                 </div>
