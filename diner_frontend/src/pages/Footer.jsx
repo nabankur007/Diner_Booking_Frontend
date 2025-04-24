@@ -1,164 +1,183 @@
-import React from 'react';
+import React from "react";
 import {
-  FaInstagram,
-  FaFacebook,
-  FaTwitter,
-  FaLinkedin,
-  FaShieldAlt,
-  FaPlane,
-  FaHeadphonesAlt,
-} from 'react-icons/fa';
+    FaInstagram,
+    FaFacebook,
+    FaTwitter,
+    FaLinkedin,
+    FaShieldAlt,
+    FaPlane,
+    FaHeadphonesAlt,
+    FaApple,
+    FaCcVisa,
+    FaCcMastercard,
+    FaCcPaypal,
+    FaCcAmex
+} from "react-icons/fa";
+import { SiAmericanexpress } from "react-icons/si";
 
 const Footer = () => {
-  return (
-    <footer className="bg-white text-gray-700 text-sm m-0 p-0">
-      {/* Top Strip */}
-      <div className="bg-black text-white px-4 md:px-16 py-2 flex flex-col md:flex-row justify-between items-center text-xs">
-        <div className="flex items-center gap-2 mb-1 md:mb-0">
-          <FaShieldAlt className="text-green-400" />
-          <span>100% Secure Checkout</span>
-        </div>
-        <div className="flex items-center gap-2 mb-1 md:mb-0 ">
-          <FaPlane className="text-blue-400" />
-          <span>Shipping to 70+ Countries</span>
-        </div>
-        <div className="flex items-center gap-2 mr-20">
-          <FaHeadphonesAlt className="text-yellow-400" />
-          <span>24/7 Support</span>
-        </div>
-      </div>
-
-      {/* Main Footer Content */}
-      <div className="px-4 md:px-16 py-6 grid grid-cols-1 md:grid-cols-5 gap-6 items-start">
-        {/* Logo & Social Media */}
-        <div className="md:col-span-1">
-          <h2 className="text-xl font-bold mb-2">
-
-              <div className="text-3xl font-bold text-orange-500">
-                               
-                                    DineEasy
-                                
-              </div>
-
-
-
-          </h2>
-          <p className="font-medium mb-3">Follow us</p>
-          <div className="flex gap-4 text-3xl mb-4">
-              <a
-                href="https://www.instagram.com/accounts/login/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:scale-110 transition"
-                aria-label="Instagram"
-              >
-                <FaInstagram className="text-pink-500" />
-              </a>
-              <a
-                href="https://www.facebook.com/login"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:scale-110 transition"
-                aria-label="Facebook"
-              >
-                <FaFacebook className="text-blue-600" />
-              </a>
-              <a
-                href="https://twitter.com/i/flow/login"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:scale-110 transition"
-                aria-label="Twitter"
-              >
-                <FaTwitter className="text-sky-500" />
-              </a>
-              
+    return (
+        <footer className="bg-white text-gray-700">
+            {/* Trust Badges */}
+            <div className="bg-gray-100 px-4 md:px-16 py-4 flex flex-col md:flex-row justify-center items-center gap-6 md:gap-12 text-xs border-b">
+                <div className="flex items-center gap-2">
+                    <FaShieldAlt className="text-green-500 text-lg" />
+                    <div>
+                        <p className="font-medium">100% Secure Checkout</p>
+                        <p className="text-gray-500">PCI compliant payment processing</p>
+                    </div>
+                </div>
+                <div className="flex items-center gap-2">
+                    <FaPlane className="text-blue-500 text-lg" />
+                    <div>
+                        <p className="font-medium">Worldwide Shipping</p>
+                        <p className="text-gray-500">Fast delivery to 70+ countries</p>
+                    </div>
+                </div>
+                <div className="flex items-center gap-2">
+                    <FaHeadphonesAlt className="text-yellow-500 text-lg" />
+                    <div>
+                        <p className="font-medium">24/7 Support</p>
+                        <p className="text-gray-500">Dedicated customer service</p>
+                    </div>
+                </div>
             </div>
 
-            {/* Google Play Badge */}
-            <a
-              href="https://play.google.com/store"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Google Play Store"
-            >
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-                alt="Google Play"
-                className="w-32 hover:scale-105 transition"
-              />
-            </a>
-          </div>
+            {/* Main Footer Content */}
+            <div className="px-4 md:px-16 py-8 grid grid-cols-2 md:grid-cols-5 gap-8 items-start">
+                {/* Brand & Social */}
+                <div className="col-span-2 md:col-span-1">
+                    <div className="text-3xl font-bold text-orange-500 mb-3">DineEasy</div>
+                    <p className="text-gray-500 mb-4">Discover the best dining experiences near you.</p>
+                    
+                    <div className="mb-6">
+                        <p className="font-medium mb-2">Follow us</p>
+                        <div className="flex gap-3 text-xl">
+                            <a href="https://instagram.com" target="_blank" rel="noopener" className="text-pink-500 hover:text-pink-600 transition">
+                                <FaInstagram />
+                            </a>
+                            <a href="https://facebook.com" target="_blank" rel="noopener" className="text-blue-600 hover:text-blue-700 transition">
+                                <FaFacebook />
+                            </a>
+                            <a href="https://twitter.com" target="_blank" rel="noopener" className="text-sky-400 hover:text-sky-500 transition">
+                                <FaTwitter />
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" rel="noopener" className="text-blue-700 hover:text-blue-800 transition">
+                                <FaLinkedin />
+                            </a>
+                        </div>
+                    </div>
 
-      
+                    <div>
+                        <p className="font-medium mb-2">Get the app</p>
+                        <div className="flex flex-col gap-2">
+                            <a href="#" className="hover:opacity-90 transition">
+                                <img 
+                                    src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
+                                    alt="Google Play" 
+                                    className="h-10"
+                                />
+                            </a>
+                            <a href="#" className="hover:opacity-90 transition">
+                                <div className="flex items-center justify-center bg-black text-white rounded h-10 px-3 gap-2">
+                                    <FaApple className="text-lg" />
+                                    <div className="text-xs text-left">
+                                        <div>Download on the</div>
+                                        <div className="font-semibold text-sm">App Store</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
-        {/* Company */}
-        <div>
-          <h3 className="font-semibold mb-2">COMPANY</h3>
-          <ul className="space-y-1">
-            <li><a href="/about">About us</a></li>
-            <li><a href="#">Team</a></li>
-            <li><a href="/privacy">Privacy Policy</a></li>
-            <li><a href="/tos">Terms of Use</a></li>
-            
-          </ul>
-        </div>
+                {/* Company Links */}
+                <div>
+                    <h3 className="font-semibold text-gray-800 mb-4 uppercase text-sm">Company</h3>
+                    <ul className="space-y-3">
+                        <li><a href="/about" className="text-gray-600 hover:text-orange-500 transition">About Us</a></li>
+                        <li><a href="/careers" className="text-gray-600 hover:text-orange-500 transition">Careers</a></li>
+                        <li><a href="/work_in_progress" className="text-gray-600 hover:text-orange-500 transition">Blog</a></li>
+                        <li><a href="/work_in_progress" className="text-gray-600 hover:text-orange-500 transition">Press</a></li>
+                        <li><a href="/privacy" className="text-gray-600 hover:text-orange-500 transition">Privacy Policy</a></li>
+                        <li><a href="/tos" className="text-gray-600 hover:text-orange-500 transition">Terms of Service</a></li>
+                    </ul>
+                </div>
 
-        {/* User */}
-        <div>
-          <h3 className="font-semibold mb-2">For Customer</h3>
-          <ul className="space-y-1">
-            <li><a href="/signup">Create Account</a></li>
-            <li><a href="/login">Apps for You</a></li>
-            
-          </ul>
-        </div>
+                {/* For Customers */}
+                <div>
+                    <h3 className="font-semibold text-gray-800 mb-4 uppercase text-sm">For Customers</h3>
+                    <ul className="space-y-3">
+                        <li><a href="/signup" className="text-gray-600 hover:text-orange-500 transition">Create Account</a></li>
+                        <li><a href="/login" className="text-gray-600 hover:text-orange-500 transition">Sign In</a></li>
+                        <li><a href="/work_in_progress" className="text-gray-600 hover:text-orange-500 transition">Gift Cards</a></li>
+                        <li><a href="/work_in_progress" className="text-gray-600 hover:text-orange-500 transition">Help Center</a></li>
+                        <li><a href="/work_in_progress" className="text-gray-600 hover:text-orange-500 transition">FAQs</a></li>
+                        <li><a href="/work_in_progress" className="text-gray-600 hover:text-orange-500 transition">Contact Us</a></li>
+                    </ul>
+                </div>
 
-          {/* Business Partners */}
-          <div>
-          <h3 className="font-semibold mb-2">For Business Partners</h3>
-          <ul className="space-y-1">
-            <li><a href="/res_registration">Add Your Restaurant</a></li>
-            <li><a href="/">Apps for You</a></li>
-            
-          </ul>
-        </div>
+                {/* For Partners */}
+                <div>
+                    <h3 className="font-semibold text-gray-800 mb-4 uppercase text-sm">For Partners</h3>
+                    <ul className="space-y-3">
+                        <li><a href="/res_partnership" className="text-gray-600 hover:text-orange-500 transition">Partner With Us</a></li>
+                        {/* <li><a href="/restaurants" className="text-gray-600 hover:text-orange-500 transition">Add Your Restaurant</a></li> */}
+                        {/* <li><a href="/driver" className="text-gray-600 hover:text-orange-500 transition">Become a Driver</a></li> */}
+                        <li><a href="/work_in_progress" className="text-gray-600 hover:text-orange-500 transition">Business Solutions</a></li>
+                        <li><a href="/work_in_progress" className="text-gray-600 hover:text-orange-500 transition">Merchant Center</a></li>
+                    </ul>
+                </div>
 
-        {/* Contact */}
-        <div className="md:col-span-1">
-          <h3 className="font-semibold mb-2">Contact Us</h3>
-          <textarea
-            rows="2"
-            placeholder="Leave a comment..."
-            className="w-full p-2 text-sm border rounded mb-2 resize-none focus:outline-none focus:ring-1 focus:ring-blue-400"
-          />
-          <input
-            type="email"
-            placeholder="Your email"
-            className="w-full p-2 text-sm border rounded mb-2 focus:outline-none focus:ring-1 focus:ring-blue-400"
-          />
-          <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition text-sm">
-            Send
-          </button>
-        </div>
-      </div>
+                {/* Newsletter */}
+                <div className="col-span-2 md:col-span-1">
+                    <h3 className="font-semibold text-gray-800 mb-4 uppercase text-sm">Stay Updated</h3>
+                    <p className="text-gray-500 mb-4 text-sm">Subscribe to our newsletter for the latest updates and offers.</p>
+                    
+                    <form className="space-y-3">
+                        <div>
+                            <input 
+                                type="email" 
+                                placeholder="Your email address" 
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                                required
+                            />
+                        </div>
+                        <button 
+                            type="submit" 
+                            className="w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition font-medium"
+                        >
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
 
-      {/* Bottom Strip */}
-      <div className="text-center text-xs text-gray-500 py-2 border-t m-0">
-        &copy; {new Date().getFullYear()} 
-        
-        <div className="container mx-auto text-center">
-                                <p className="text-gray-400 text-sm">
-                                    <span className="text-orange-500 font-semibold">DineEasy</span>. All rights reserved.
-                                </p>
-                                <p className="text-gray-500 text-xs mt-1">
-                                    Crafted with 🍷 & ❤️ by passionate foodies.
-                                </p>
-                            
-                            </div>
-      </div>
-    </footer>
-  );
+            {/* Payment Methods & Copyright */}
+            <div className="bg-gray-50 px-4 md:px-16 py-6 border-t">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                    {/* Payment Methods */}
+                    <div className="flex flex-wrap justify-center gap-3 text-2xl text-gray-400">
+                        <FaCcVisa className="hover:text-gray-600 transition" />
+                        <FaCcMastercard className="hover:text-gray-600 transition" />
+                        <FaCcPaypal className="hover:text-gray-600 transition" />
+                        <FaCcAmex className="hover:text-gray-600 transition" />
+                        <SiAmericanexpress className="hover:text-gray-600 transition" />
+                    </div>
+                    
+                    {/* Copyright */}
+                    <div className="text-center md:text-right">
+                        <p className="text-gray-500 text-sm">
+                            &copy; {new Date().getFullYear()} DineEasy. All rights reserved.
+                        </p>
+                        <p className="text-gray-400 text-xs mt-1">
+                            Made with ❤️ by food lovers around the world.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    );
 };
 
 export default Footer;
